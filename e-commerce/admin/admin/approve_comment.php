@@ -11,24 +11,30 @@ include ('../config/dbcon.php');
 <table class="table table-striped table-hover border-danger ">
   <tr>
         <th>No.</th>
-       
+        <th>Date&Time</th>
         <th>User Name</th>
         <th>Product Name</th>
         <th>Comment</th>
         <th>Action</th>
   </tr>
-  <?php
 
-    // delete user
-    if (isset($_GET['deleteid'])) {
-        $id = $_GET['deleteid'];
-
-        mysqli_query($con, "DELETE FROM comments WHERE comment_id=".$id);
-        
+    <?php
+    //approve comments 
+if(isset($_GET['id'])){
+    $id=$_GET['id'];
+   
+    $result=mysqli_query($con," UPDATE comments SET approval='ON' WHERE comment_id=".$id);
+    if($result){
+        $message=" Comment is approved";
+       echo ' <div class="alert alert-success" role="alert">'. $message .'  </div>';
     }
-    ?>
 
     
+}
+else{
+    echo'erre';
+}
+?>
 
 
 <?php
@@ -48,14 +54,13 @@ $id=$row["comment_id"];
     <td>".$row["comment_id"] ."</td>";?>
  
     <?php echo" 
-    
     <td>".$row["first_name"]."</td>
     <td>".$row["product_name"]."</td>
     <td>".$row["comment"]."</td>
     
     <td>
    
-    <button class='btn btn-success'><a href='approve_comment.php?id=".$id."' class='text-light'><i class='bi bi-check-circle-fill'></i></a></button>"?>
+    <button class='btn btn-success'><a href='approve_comment?id=".$id."' class='text-light'><i class='bi bi-check-circle-fill'></i></a></button>"?>
     <button  class='btn btn-danger'><a onclick="return confirm('Do you want to delete this record?')" href=<?php echo"'comments.php?deleteid=".$id."' class='text-light remove'><i class='bi bi-x-circle-fill'></i></a></button>
     </td>
    </tr>";

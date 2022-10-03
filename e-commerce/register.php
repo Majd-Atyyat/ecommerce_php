@@ -1,5 +1,6 @@
 <?php 
-include './config.php'; ?>
+$conn=mysqli_connect('localhost','root','','ecommerce');
+?>
 
 <?php 
 $first_name=$last_name=$email=$birthday=$phone='';
@@ -137,7 +138,7 @@ else{
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
     <!-- Main css -->
-    <link rel="stylesheet" href="/registiration/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
@@ -199,7 +200,7 @@ else{
                         </form>
                     </div>
                     <div class="signup-image">
-                        <figure><img src="/registiration/assets/images/signup-image.jpg" alt="sing up image"></figure>
+                        <figure><img src="assets/images/signup-image.jpg" alt="sing up image"></figure>
                         <a href="./login.php" class="signup-image-link">I am already member</a>
                     </div>
                 </div>

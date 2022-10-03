@@ -48,10 +48,10 @@ $id=$row["id"];
     <td>".$row["id"] ."</td>";?>
  
 <td>
-<img src="<?php echo 'images/'. $row['image_01']; ?>" width='90' height='90'> 
+<img src="<?php echo 'images/'. $row['image']; ?>" width='90' height='90'> 
 </td>
 <td>
-<img src="<?php echo 'images/'. $row['image']; ?>" width='90' height='90'> 
+<img src="<?php echo 'images/'. $row['image_01']; ?>" width='90' height='90'> 
 </td>
 <td>
 <img src="<?php echo 'images/'. $row['image_02']; ?>" width='90' height='90'> 
@@ -68,7 +68,7 @@ $id=$row["id"];
     <td>".$row["product_key"]."</td>
     <td>
     <button class='btn btn-warning'><a href='view_product.php?veiwid=".$id."' class='text-light'><i class='bi bi-eye-fill'></i></a></button>
-    <button class='btn btn-info'><a href='update_product.php?updateid=".$id."' class='text-light'><i class='bi bi-pen-fill'></i></a></button>"?>
+    <button class='btn btn-info'><a href='update_product.php?id=".$id."' class='text-light'><i class='bi bi-pen-fill'></i></a></button>"?>
     <button  class='btn btn-danger'><a onclick="return confirm('Do you want to delete this record?')" href=<?php echo"'products.php?deleteid=".$id."' class='text-light remove'><i class='bi bi-trash3-fill'></i></a></button>
     </td>
    </tr>";

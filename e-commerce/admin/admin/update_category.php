@@ -1,87 +1,60 @@
 <?php include('./includes/header.php'); 
 include ('../config/dbcon.php');
 ?>
-<?php 
+
+<?php
 
 
+if(isset($_POST['update']))
+{   
+    $id = $_POST['id'];
+    
+    $name=$_POST['name'];
+    
+    
+    // checking empty fields
+      
+        //updating the table
+ $result = mysqli_query($con, "UPDATE  category SET category_name='$name' WHERE id=$id");
+        
 
-    if (isset($_POST['update'])) {
+$message=" your category is updated";
+echo ' <div class="alert alert-info" role="alert">'. $message .'  </div>';
+    }
 
-        $category = $_POST['category_name'];
+?>
+<?php
 
-         $user_id = $_POST['user_id'];
-       
 
-     
+//getting id from url
+$id = $_GET['id'];
 
-        $sql = "UPDATE `category` SET `category_name`='$category' WHERE `id`='$user_id'"; 
+//selecting data associated with this particular id
+$result = mysqli_query($con, "SELECT * FROM category WHERE id=$id");
 
-        $result = $con->query($sql); 
+while($res = mysqli_fetch_array($result))
+{
+    $name = $res['category_name'];
+    
+}
+?>
 
-        if ($result == TRUE) {
 
-            $message=" your category is updatetd";
-            echo ' <div class="alert alert-info" role="alert">'. $message .'  </div>';
-
-        }else{
-
-            echo "Error:" . $sql . "<br>" . $con->error;
-
-        }
-
-    } 
-
-if (isset($_GET['veiwid'])) {
-
-    $user_id = $_GET['veiwid']; 
-
-    $sql = "SELECT * FROM `category` WHERE `id`='$user_id'";
-
-    $result = $con->query($sql); 
-
-    if ($result->num_rows > 0) {        
-
-        while ($row = $result->fetch_assoc()) {
-
-            $category = $row['category_name'];
-
-            $user_id = $row['id'];
-          
-   
-
-        } 
-
-    ?>
-<form class="mx-auto mt-4" style="width: 700px;" method="POST" action="update_category.php">
+<form class="mx-auto mt-10" style="width: 500px;" method="POST" action="">
   <div class="form-group">
-
-    <h3>Update category</h3>
-
-    <label class="form-label">Category Name</label>
-  <input type="text"  name="category"class="form-control" value="<?php echo $category  ?>">
-   
+    <h3>Add New Category Name</h3>
+    
+    <input type="text"  name="name"class="form-control" value="<?php echo $name; ?>">
+    
   </div>
-  
-  <input type="hidden" name="user_id" value="<?php echo $id; ?>">
-
-  
-
-  
-  <button  name =" update"type="submit" class="btn btn-primary">update</button>
+  <input type="hidden" name="id" value=<?php echo $_GET['id'];?>></td>
+  <button  name =" update"type="submit" class="btn btn-primary">Add</button>
   <a href="./category.php" class="btn btn-secondary ml-2">Cancel</a>
 </form
-        <?php include('./includes/footer.php'); ?>
-       
+    
+   
 
-    <?php
 
-    } else{ 
+<?php include('./includes/footer.php'); ?>
 
-        header('Location: update_category.php');
-
-    } 
-
-}
-
-?> 
 

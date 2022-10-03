@@ -178,6 +178,6 @@ if(isset($_POST['submit'])){
   <br>
   <button  name =" submit"type="submit" class="btn btn-primary">Add</button>
   <a href="./users.php" class="btn btn-secondary ml-2">Cancel</a>
-</form
+    </form>
 
 <?php include('./includes/footer.php'); ?>

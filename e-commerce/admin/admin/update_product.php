@@ -4,142 +4,96 @@ include ('../config/dbcon.php');
 
 <?php
 
-if(isset($_GET['updateid'])){
 
-$edit_id = $_GET['updateid'];
+if(isset($_POST['update']))
+{   
+        $id = $_POST['id'];
+        $product= $_POST['product_name'];
+        $category= $_POST['category'];
+        $price= $_POST['price'];
+        $color= $_POST['color'];
+        $description= $_POST['description'];
+        $key= $_POST['product_key'];
+        if(empty($_POST['image'])){
+          $path='default.jpg';
+       }
+       else { $path =$_POST['image'];
+   
+       }
+       if(empty($_POST['image_01'])){
+           $path1='default.jpg';
+        }
+        else { $path1 =$_POST['image_01'];
+    
+        }
+        if(empty($_POST['image_02'])){
+           $path2='default.jpg';
+        }
+        else { $path2 =$_POST['image_02'];
+    
+        }
+        if(empty($_POST['image_03'])){
+           $path3='default.jpg';
+        }
+        else { $path3 =$_POST['image_03'];
+    
+        }
+       
+      
+    
+    
+    // checking empty fields
+      
+        //updating the table
+ $result = mysqli_query($con, "UPDATE  products SET product_name='$product',category='$category',price='$price',color='$color',
+ description='$description',product_key='$key',category='$category',image='$path',image_01='$path1',image_02='$path2',image_03='$path3' WHERE id=$id");
+        
 
-$get_p = "select * from products where id='$edit_id'";
-
-$run_edit = mysqli_query($con,$get_p);
-
-$row_edit = mysqli_fetch_array($run_edit);
-
-$p_id = $row_edit['id'];
-
-$p_title = $row_edit['product_name'];
-
-
-$cat = $row_edit['category'];
-
-
-
-$p_image1 = $row_edit['image'];
-$p_image2 = $row_edit['image_01'];
-$p_image3 = $row_edit['image_02'];
-$p_image3 = $row_edit['image_03'];
-
-$new_p_image1 = $row_edit['image'];
-
-$new_p_image2 = $row_edit['image_01'];
-
-$new_p_image3 = $row_edit['image_02'];
-$new_p_image3 = $row_edit['image_03'];
-
-$p_price = $row_edit['price'];
-
-$p_desc = $row_edit['description'];
-
-$p_keywords = $row_edit['product_key'];
-
-
-
-
-
-}
-
-
-$get_cat = "select * from categories where category_name='$cat'";
-
-$run_cat = mysqli_query($con,$get_cat);
-
-$row_cat = mysqli_fetch_array($run_cat);
-
-$cat_title = $row_cat['category_name'];
+$message=" your product is updated";
+echo ' <div class="alert alert-info" role="alert">'. $message .'  </div>';
+    }
 
 ?>
-
-
-<!DOCTYPE html>
-
-<html>
-
-<head>
-
-<title> Edit Products </title>
-
-
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-  <script>tinymce.init({ selector:'#product_desc,#product_features' });</script>
-
-</head>
-
-<body>
-
-<div class="row"><!-- row Starts -->
-
-<div class="col-lg-12"><!-- col-lg-12 Starts -->
-
-<ol class="breadcrumb"><!-- breadcrumb Starts -->
-
-<li class="active">
-
-<i class="fa fa-dashboard"> </i> Dashboard / Edit Products
-
-</li>
-
-</ol><!-- breadcrumb Ends -->
-
-</div><!-- col-lg-12 Ends -->
-
-</div><!-- row Ends -->
-
-
-<div class="row"><!-- 2 row Starts --> 
-
-<div class="col-lg-12"><!-- col-lg-12 Starts -->
-
-<div class="panel panel-default"><!-- panel panel-default Starts -->
-
-<div class="panel-heading"><!-- panel-heading Starts -->
-
-<h3 class="panel-title">
-
-<i class="fa fa-money fa-fw"></i> Edit Products
-
-</h3>
-
-</div><!-- panel-heading Ends -->
-
-<div class="panel-body"><!-- panel-body Starts -->
-
-<form class="form-horizontal" method="post" enctype="multipart/form-data"><!-- form-horizontal Starts -->
-
-<div class="form-group" ><!-- form-group Starts -->
-
-<label class="col-md-3 control-label" > Product Title </label>
-
-<div class="col-md-6" >
-
-<input type="text" name="product_title" class="form-control" required value="<?php echo $p_title; ?>">
-
-</div>
-
-</div><!-- form-group Ends -->
-
-<div class="form-group" ><!-- form-group Starts -->
-
-<label class="col-md-3 control-label" > Category </label>
-
-<div class="col-md-6" >
-
-
-<select name="cat" class="form-control" >
-
-<option value="<?php echo $cat; ?>" > <?php echo $cat_title; ?> </option>
-
 <?php
 
-$get_cat = "select * from categories ";
+
+//getting id from url
+$id = $_GET['id'];
+
+//selecting data associated with this particular id
+$result = mysqli_query($con, "SELECT * FROM products WHERE id=$id");
+
+while($row = mysqli_fetch_array($result))
+{
+    $category = $row['category'];
+    $product=$row["product_name"];
+    $price=$row["price"];
+    $description=$row["description"];
+    $color=$row["color"];
+    $key=$row["product_key"];
+    $path=$row["image"];
+    $path1=$row["image_01"];
+    $path2=$row["image_02"];
+    $path3=$row["image_02"];
+    
+}
+?>
+
+<form class="mx-auto mt-4" style="width: 700px;" method="POST" action="">
+  <div class="form-group">
+
+    <h3>Update Product</h3>
+
+    <label  class="form-label">Product Name</label>
+    <input type="text"  name="product_name"class="form-control" value="<?php echo $product  ?>">
+    
+  </div>
+
+  <select class="form-select bg-white border border-secondary" name="category">
+  <option selected>select category</option>
+  <?php
+
+$get_cat = "select * from category ";
 
 $run_cat = mysqli_query($con,$get_cat);
 
@@ -149,208 +103,66 @@ $cat_id = $row_cat['id'];
 
 $cat_title = $row_cat['category_name'];
 
-echo "<option value='$cat_id'>$cat_title</option>";
+echo "<option value='$cat_title'>$cat_title</option>";
 
 }
 
 ?>
+</select> 
+    
 
 
-</select>
-
+  <label class="form-label">price</label>
+  <input type="text"  name="price"class="form-control" value="<?php echo $price ; ?>">
+   
+  </div>
+  <label class="form-label">color</label>
+  <input type="text"  name="color"class="form-control" value="<?php echo $color ;?>">
+   
+  </div>
+  <label class="form-label">Product Description</label>
+  <div class="input-group">
+  <textarea class="form-control" name="description"> <?php echo $description ; ?></textarea>
 </div>
 
-</div><!-- form-group Ends -->
 
-<div class="form-group" ><!-- form-group Starts -->
-
-<label class="col-md-3 control-label" > Product Image 1 </label>
-
-<div class="col-md-6" >
-
-<input type="file" name="product_img1" class="form-control" >
-<br><img src="product_images/<?php echo $p_image1; ?>" width="70" height="70" >
-
+<label class="form-label">Key Words</label>
+<div class="input-group">
+  <textarea class="form-control" name="product_key"><?php echo $description ; ?></textarea>
 </div>
 
-</div><!-- form-group Ends -->
 
-<div class="form-group" ><!-- form-group Starts -->
-
-<label class="col-md-3 control-label" > Product Image 2 </label>
-
-<div class="col-md-6" >
-
-<input type="file" name="product_img2" class="form-control" >
-<br><img src="product_images/<?php echo $p_image2; ?>" width="70" height="70" >
-
+<label class="form-label">First image </label>
+<div class="input-group">
+<img src="images/<?php echo $path; ?>" width="70" height="70" >
+  <input type="file" class="form-control" id="inputGroupFile04"  name="image" aria-label="Upload">
+  
 </div>
 
-</div><!-- form-group Ends -->
-
-<div class="form-group" ><!-- form-group Starts -->
-
-<label class="col-md-3 control-label" > Product Image 3 </label>
-
-<div class="col-md-6" >
-
-<input type="file" name="product_img3" class="form-control" >
-<br><img src="product_images/<?php echo $p_image3; ?>" width="70" height="70" >
-
+<label class="form-label">Second image</label>
+<div class="input-group">
+<img src="images/<?php echo $path1; ?>" width="70" height="70" >
+  <input type="file" class="form-control" id="inputGroupFile04"  name="image_01" aria-label="Upload">
 </div>
 
-</div><!-- form-group Ends -->
-
-<div class="form-group" ><!-- form-group Starts -->
-
-<label class="col-md-3 control-label" > Product Price </label>
-
-<div class="col-md-6" >
-
-<input type="text" name="product_price" class="form-control" required value="<?php echo $p_price; ?>" >
-
+<label class="form-label">Third image</label>
+<div class="input-group">
+<img src="images/<?php echo $path2; ?>" width="70" height="70" >
+  <input type="file" class="form-control" id="inputGroupFile04"  name="image_02" aria-label="Upload">
 </div>
 
-</div><!-- form-group Ends -->
-
-
-<div class="form-group" ><!-- form-group Starts -->
-
-<label class="col-md-3 control-label" > Product Keywords </label>
-
-<div class="col-md-6" >
-
-<input type="text" name="product_keywords" class="form-control" required value="<?php echo $p_keywords; ?>" >
-
+<label class="form-label">Fourth image</label>
+<div class="input-group">
+<img src="images/<?php echo $path3; ?>" width="70" height="70" >
+  <input type="file" class="form-control" id="inputGroupFile04"  name="image_03" aria-label="Upload">
 </div>
-
-</div><!-- form-group Ends -->
-
-<div class="form-group" ><!-- form-group Starts -->
-
-<label class="col-md-3 control-label" > Product Tabs </label>
-
-<div class="col-md-6" >
-
-<ul class="nav nav-tabs"><!-- nav nav-tabs Starts -->
-
-<li class="active">
-
-<a data-toggle="tab" href="#description"> Product Description </a>
-
-</li>
-
-
-</ul><!-- nav nav-tabs Ends -->
-
-<div class="tab-content"><!-- tab-content Starts -->
-
-<div id="description" class="tab-pane fade in active"><!-- description tab-pane fade in active Starts -->
-
+<input type="hidden" name="id" value=<?php echo $_GET['id'];?>></td>
 <br>
-
-<textarea name="product_desc" class="form-control" rows="15" id="product_desc">
-
-<?php echo $p_desc; ?>
-
-</textarea>
-
-</div><!-- description tab-pane fade in active Ends -->
+  <button  name ="update" type="submit" class="btn btn-primary">Update</button>
+  <a href="./products.php" class="btn btn-secondary ml-2">Cancel</a>
+</form>
+   
 
 
-<div class="form-group" ><!-- form-group Starts -->
-
-<label class="col-md-3 control-label" ></label>
-
-<div class="col-md-6" >
-
-<input type="submit" name="update" value="Update Product" class="btn btn-primary form-control" >
-
-</div>
-
-</div><!-- form-group Ends -->
-
-</form><!-- form-horizontal Ends -->
-
-</div><!-- panel-body Ends -->
-
-</div><!-- panel panel-default Ends -->
-
-</div><!-- col-lg-12 Ends -->
-
-</div><!-- 2 row Ends --> 
-
-
-
-
-</body>
-
-</html>
-
-<?php
-
-if(isset($_POST['update'])){
-
-$product_title = $_POST['product_title'];
-$product_cat = $_POST['product_cat'];
-$cat = $_POST['cat'];
-
-$product_price = $_POST['product_price'];
-$product_desc = $_POST['product_desc'];
-$product_keywords = $_POST['product_keywords'];
-
-
-
-
-
-$status = "product";
-
-$product_img1 = $_FILES['product_img1']['name'];
-$product_img2 = $_FILES['product_img2']['name'];
-$product_img3 = $_FILES['product_img3']['name'];
-
-$temp_name1 = $_FILES['product_img1']['tmp_name'];
-$temp_name2 = $_FILES['product_img2']['tmp_name'];
-$temp_name3 = $_FILES['product_img3']['tmp_name'];
-
-if(empty($product_img1)){
-
-$product_img1 = $new_p_image1;
-
-}
-
-
-if(empty($product_img2)){
-
-$product_img2 = $new_p_image2;
-
-}
-
-if(empty($product_img3)){
-
-$product_img3 = $new_p_image3;
-
-}
-
-
-move_uploaded_file($temp_name1,"product_images/$product_img1");
-move_uploaded_file($temp_name2,"product_images/$product_img2");
-move_uploaded_file($temp_name3,"product_images/$product_img3");
-
-$update_product = "update products set cat_id='$cat',product_title='$product_title',product_img1='$product_img1',product_img2='$product_img2',product_img3='$product_img3',product_price='$product_price',product_desc='$product_desc',product_keywords='$product_keywords' where product_id='$p_id'";
-
-$run_product = mysqli_query($con,$update_product);
-
-if($run_product){
-
-echo "<script> alert('Product has been updated successfully') </script>";
-
-echo "<script>window.open('index.php?view_products','_self')</script>";
-
-}
-
-}
-
-?>
-
+<?php include('./includes/footer.php'); ?>
 

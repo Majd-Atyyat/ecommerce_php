@@ -13,7 +13,17 @@ include ('../config/dbcon.php')?>
 $sql = "SELECT * FROM category; ";
   $result = mysqli_query($con, $sql);
   $num_of_categories = mysqli_num_rows( $result);
-//   echo  "Number of products:".$num;
+//   echo  "Number of categories:".$num;
+
+$sql = "SELECT * FROM orders; ";
+  $result = mysqli_query($con, $sql);
+  $num_of_orders = mysqli_num_rows( $result);
+//   echo  "Number of orders:".$num;
+
+$sql = "SELECT * FROM users; ";
+  $result = mysqli_query($con, $sql);
+  $num_of_users = mysqli_num_rows( $result);
+//   echo  "Number of user:".$num;
 
 ?>
 <div class="container m-5">
@@ -52,7 +62,7 @@ $sql = "SELECT * FROM category; ";
     </div>
     <div class="text-end pt-1">
       <p class="text-sm mb-0 text-capitalize">Number of orders</p>
-      <h4 class="mb-0"><?php  echo $num_of_categories?></h4>
+      <h4 class="mb-0"><?php  echo $num_of_orders?></h4>
     </div>
   </div>
 
@@ -71,7 +81,7 @@ $sql = "SELECT * FROM category; ";
     </div>
     <div class="text-end pt-1">
       <p class="text-sm mb-0 text-capitalize ">Number of categories</p>
-      <h4 class="mb-0 "><?php  echo $num_of_categories?></h4>
+      <h4 class="mb-0"><?php  echo $num_of_categories?></h4>
     </div>
   </div>
 
@@ -88,7 +98,7 @@ $sql = "SELECT * FROM category; ";
     </div>
     <div class="text-end pt-1">
       <p class="text-sm mb-0 text-capitalize ">Number of users</p>
-      <h4 class="mb-0 "><?php  echo $num_of_products?></h4>
+      <h4 class="mb-0 "><?php  echo $num_of_users?></h4>
     </div>
   </div>
 

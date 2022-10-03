@@ -58,7 +58,7 @@ $id=$row["id"];
     <td>".$row["role"]."</td>
     <td>
     <button class='btn btn-warning'><a href='view_user.php?veiwid=".$id."' class='text-light'><i class='bi bi-eye-fill'></i></a></button>
-    <button class='btn btn-info'><a href='update_user.php?updateid=".$id."' class='text-light'><i class='bi bi-pen-fill'></i></a></button>"?>
+    <button class='btn btn-info'><a href='update_user.php?id=".$id."' class='text-light'><i class='bi bi-pen-fill'></i></a></button>"?>
     <button  class='btn btn-danger'><a onclick="return confirm('Do you want to delete this record?')" href=<?php echo"'users.php?deleteid=".$id."' class='text-light remove'><i class='bi bi-trash3-fill'></i></a></button>
     </td>
    </tr>";

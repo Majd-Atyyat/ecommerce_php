@@ -1,5 +1,6 @@
 <?php 
-include './config.php'; ?>
+$conn=mysqli_connect('localhost','root','','ecommerce');
+?>
 
 
 <?php
@@ -20,11 +21,13 @@ if(isset($_POST['submit'])){
           $row= mysqli_fetch_array($result);
           if($row['role'] =='admin'){
             $_SESSION['admin_name'] =$row ['first_name'];
-            header('Location:../admin/admin/index.php');
+            header('Location:./admin/admin/index.php');
 
           }elseif($row['role'] =='user'){
             $_SESSION['user_name'] =$row ['first_name'];
-            header('Location:./userpage.php');
+            // $_SESSION["loggedin"]=true;
+            header('Location:./index.php');
+            
         }
 }else{
     $errors['password']='incorrect email or password';
@@ -45,7 +48,7 @@ if(isset($_POST['submit'])){
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
     <!-- Main css -->
-    <link rel="stylesheet" href="/registiration/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
@@ -55,7 +58,7 @@ if(isset($_POST['submit'])){
             <div class="container mt-5">
                 <div class="signin-content">
                     <div class="signin-image">
-                        <figure><img src="./assets/images/signin-image.jpg" alt="sing up image"></figure>
+                        <figure><img src="assets/images/signin-image.jpg" alt="sing up image"></figure>
                         <a href="./register.php" class="signup-image-link">Create an account</a>
                     </div>
 
